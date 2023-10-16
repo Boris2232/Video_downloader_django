@@ -25,18 +25,28 @@ Part 1: !!! Registration Form !!!
    
 7) views.py (Combines views functions of three aplications)
                                   def index_1(request):
+   
                                   # catches information from form
+   
                                   if request.method == 'POST':
+   
                                   # creates variables of login and password
+   
                                     login = request.POST['username']
                                     password = request.POST['password']
+   
                                     # creates object with login and password attributes
+   
                                     new_user = People(name=login, password=password)
                                     #saves this field in global database
                                     new_user.save()
+   
                                     # redirects to a next page (can be modified)
+   
                                     return redirect("login/")
+   
                                     # loads page with html + css template
+   
                                   return render(request, 'index.html')
 
    
