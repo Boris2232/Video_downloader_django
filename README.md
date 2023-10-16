@@ -24,6 +24,7 @@ Part 1: !!! Registration Form !!!
 5) test.py (test cases can be written here)
    
 7) views.py (Combines views functions of three aplications)
+   
                                   def index_1(request):
    
                                   # catches information from form
@@ -69,26 +70,38 @@ Login page is designed to catch information from the input fields after clicking
 Structure: 
 1) views.py is located in regform folder.
 2) views.py functionality:
-def login_page(request):
-
-    // Extract information of all users from database
-    all_people = People.objects.all()
    
-    s1 = []
-       # store login and passwords in array "s1"
-    for i in all_people:
-        s1.append([i.name, i.password])
-       # catches form
-    if request.method == 'POST':
-       # extract username and login from request 
-        given_login = request.POST.get('username')
-        given_pass = request.POST.get('password')
-        # redirected = False
-        for i in range(len(s1)):
-       # if the login exists and corresponding password matches with provided, redirect to main page
-            if s1[i][0] == given_login and s1[i][1] == given_pass:
-                return HttpResponseRedirect('/congrat')
-    return render(request, 'login.html')
+                      def login_page(request):
+                      
+                          // Extract information of all users from database
+                          all_people = People.objects.all()
+                         
+                          s1 = []
+   
+                             # store login and passwords in array "s1"
+   
+                          for i in all_people:
+                              s1.append([i.name, i.password])
+   
+                             # catches form
+   
+                          if request.method == 'POST':
+   
+                             # extract username and login from request
+   
+                              given_login = request.POST.get('username')
+                              given_pass = request.POST.get('password')
+   
+                              # redirected = False
+   
+                              for i in range(len(s1)):
+   
+                             # if the login exists and corresponding password matches with provided password, redirect to main page
+   
+                                  if s1[i][0] == given_login and s1[i][1] == given_pass:
+                                      return HttpResponseRedirect('/congrat')
+   
+                          return render(request, 'login.html')
 
 
 !!! Main page !!!
