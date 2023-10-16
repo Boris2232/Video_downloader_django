@@ -18,5 +18,16 @@ link_collector folder's structure:
 2) static folder (contains javascript scripts for this page and a css file)
 3) templates (html template is located here)
 4) __init__.py (not modified)
-5) 
+5) admin.py (not edited)
+6) apps.py (automatically created py file)
+   
+8) models.py (contains three classes: Resolution (to store chosen resolution here), Mistakes (class PROBLEM 1 and PROBLEM 2 declaration) and Link (to work with given link with python libraries))
+   
+9) tests.py
+10) views.py (functionality will be explained below)
+
+
+PROBLEMS with downloading videos and it's solutions.
+PROBLEM 1: AGE RESTRICTION. According to a youtube's policy, people under 18 are not alowed to watch videos, which are age restricted. To follow this rules, i have written a script, that show that video is under age restrictions. 
+PROBLEM 2: EMPTY LINK:
 
