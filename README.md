@@ -70,6 +70,7 @@ Login page is designed to catch information from the input fields after clicking
 Structure: 
 1) views.py is located in regform folder.
 2) views.py functionality:
+                       # login views
    
                       def login_page(request):
                       
