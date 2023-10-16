@@ -60,8 +60,10 @@ Structure:
 1) views.py is located in regform folder.
 2) views.py functionality:
 def login_page(request):
-      # extracts all objects from People model
+
+    // Extract information of all users from database
     all_people = People.objects.all()
+   
     s1 = []
        # store login and passwords in array "s1"
     for i in all_people:
@@ -76,7 +78,6 @@ def login_page(request):
        # if the login exists and corresponding password matches with provided, redirect to main page
             if s1[i][0] == given_login and s1[i][1] == given_pass:
                 return HttpResponseRedirect('/congrat')
-    # load page itself
     return render(request, 'login.html')
 
 
