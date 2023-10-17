@@ -59,6 +59,8 @@
                       else:
                           if mistakes.mistakes['empty_link'] is False:
                               try:
+                              
+                              ## if everything is okay with the video --> extract resolution
                                   resolution.resolution = link_inserting(Link.link)
                                   
                                   ## if thoose exceptions are created --> material is age restricted
@@ -142,38 +144,71 @@
                     download_audio(link, audio_path)
                 progress_bar.close()
 
+?? if the video extension it wedm, change and save it in mp4 format ??
 
-def change_extension(new_path, audio_path):
-    for i in os.listdir(new_path):
-        if i.split('.')[-1] == 'webm':
-            output_file = f'{new_path}/{i.split(".")[:-1:][0]}.mp4'
-            video = VideoFileClip(f'{new_path}/{i}')
-            video.write_videofile(output_file, codec='libx264')
-            os.remove(path=f'{new_path}/{i}')
-    combine_video_audio(new_path, audio_path)
+              def change_extension(new_path, audio_path):
+                  for i in os.listdir(new_path):
+                  
+                      ## if the last letters of file extension is webm (splitting is by "."
+                      if i.split('.')[-1] == 'webm':
+                      
+                          ## changing to mp4
+                          output_file = f'{new_path}/{i.split(".")[:-1:][0]}.mp4'
+                          
+                          ## saving to a another foler
+                          video = VideoFileClip(f'{new_path}/{i}')
+                          video.write_videofile(output_file, codec='libx264')
+                          os.remove(path=f'{new_path}/{i}')
+                          
+                  ## call a function to insert audio and a video
+                  combine_video_audio(new_path, audio_path)
+
+?? this function checks if the video and audio are downloaded separetely, combines it ??
+
+        def combine_video_audio(new_path, audio_path):
+      
+          ## if it is the first downloaded video -> create a folder
+          if 'My_Downloaded_videos' not in os.listdir('./'):
+              os.mkdir(path='./My_Downloaded_videos')
+              
+          ## loop to check if the audio corresponds to video
+          for i in os.listdir(f'{new_path}'):
+              for j in os.listdir(f'{audio_path}'):
+              ## found
+                  if i == j:
+                      video = VideoFileClip(f'{new_path}/{i}')
+                      audio = AudioFileClip(f'{audio_path}/{i}')
+                      
+                      ## !!! it is important to have the audio and the video with the same duration
+                      audio = audio.set_duration(video.duration)
+                      video = video.set_audio(audio)
+                      pat = './My_Downloaded_videos'
+                      video.write_videofile(f'{pat}/{i}', codec="libx264", audio_codec='aac')
+                      
+                      ## removing video and audio to not do the same step afterwards
+                      os.remove(path=f'./audios/{i}')
+                      os.remove(path=f'./videos/{i}')
+
+?? function that creates folder ??
+
+              def makedir(path):
+                  os.mkdir(path=f'{path}/videos')
 
 
-def combine_video_audio(new_path, audio_path):
-    if 'My_Downloaded_videos' not in os.listdir('./'):
-        os.mkdir(path='./My_Downloaded_videos')
-    for i in os.listdir(f'{new_path}'):
-        for j in os.listdir(f'{audio_path}'):
-            if i == j:
-                video = VideoFileClip(f'{new_path}/{i}')
-                audio = AudioFileClip(f'{audio_path}/{i}')
-                audio = audio.set_duration(video.duration)
-                video = video.set_audio(audio)
-                pat = './My_Downloaded_videos'
-                video.write_videofile(f'{pat}/{i}', codec="libx264", audio_codec='aac')
-                os.remove(path=f'./audios/{i}')
-                os.remove(path=f'./videos/{i}')
+?? render the page and clear up variables ??
+
+        def collector(request):
+            mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
+            return render(request, 'loadfile.html', {'resol': resolution.resolution, 'mistakes': mistakes.mistakes})
 
 
-def makedir(path):
-    os.mkdir(path=f'{path}/videos')
 
 
-def collector(request):
-    mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
-    return render(request, 'loadfile.html', {'resol': resolution.resolution, 'mistakes': mistakes.mistakes})
+DOWNLOADING PROCESS: 
+IF the VIDEO does not have integrate audio -> stored in ./videos folder   and AUDIO stored in ./audios folder
 
+!!! WHEN rendering and inserting audio activities are finished  -> video and audio will be removed from this folder
+
+#####
+!!! FINALLY :::: When all steps are passed, FINAL VIDEO is stored in ./My_Downloaded_videos
+#####
