@@ -24,7 +24,7 @@ link_collector folder's structure:
 8) models.py (contains three classes: Resolution (to store chosen resolution here), Mistakes (class PROBLEM 1 and PROBLEM 2 declaration) and Link (to work with given link with python libraries))
    
 9) tests.py
-10) views.py (functionality will be explained below)
+10) views.py (functionality will be explained after)
 
 
 PROBLEMS with downloading videos and it's solutions.
@@ -35,5 +35,4 @@ PROBLEM 2: EMPTY LINK: If the provided link is empty or it is invalid, this will
 
 PROBLEM 3: RESOLITIONS AND FILE EXTENSIONS. When we download videos from youtube, we an face a proble, with file extensions. For example, videos that have resolution higher than 1080p are automatically downloading in webm extension (not possible to watch it on devices). To solve this issue, i created a python code which convers webm -> mp4 file (saving video quality).
 
-PROBLEM 4: No audio track in some videos. Some videos are downloaded without audio (it is not synchronized with video), so i provided python script to download audio separetely and combine with the video.
-
+PROBLEM 4: No audio track in some videos. Some videos are downloaded without audio (it is not synchronized with video), so i provided python script to download audio separetely and combine it with the video.
