@@ -10,26 +10,38 @@ Link = Link()
 
 
                                           def link_inserting(link):
+                                          #link is a argument which contains video link in string format
+                                              # using pytube.YouTube
                                               video_link = YouTube(link, use_oauth=True, allow_oauth_cache=True)
+                                              # get the streams of the video
                                               streams = video_link.streams
                                               resolutions = set()
+                                              # adding different available resolutions for the video in a set (to not have repetitions)
                                               for stream in streams:
                                                   resolutions.add(stream.resolution)
+                                              # creating object of a Resolution class
                                               current_resol = Resolution()
+                                              # altering Resolution.resolution argument
                                               current_resol.resolution = sorted([i for i in list(resolutions) if i is not None],
                                                                                 key=lambda x: int(x.split('p')[0]))
                                               return current_resol.resolution
 
 
+?? function below checks if the provided link is valid (not empty or link from youtube) or if the video is not under age restriction ??
+# 
 def form1_view(request):
+
+    #creating python dictionary to store the type of mistake
     mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
     if request.method == 'POST':
         Link.link = request.POST.get('link', '')
         # check if provided link is invalid
         try:
             response = requests.get(Link.link)
+            # if the status code == 200 ---> link is valid
             if response.status_code != 200:
                 mistakes.mistakes['empty_link'] = True
+            # catch raised mistakes
         except requests.exceptions.RequestException:
             mistakes.mistakes['empty_link'] = True
         if not Link.link:
@@ -38,8 +50,10 @@ def form1_view(request):
             if mistakes.mistakes['empty_link'] is False:
                 try:
                     resolution.resolution = link_inserting(Link.link)
+                    # if thoose exceptions are created --> material is age restricted
                 except (pytube.exceptions.AgeRestrictedError, pytube.exceptions.RegexMatchError):
                     mistakes.mistakes['age_restriction'] = True
+                    # render the page with context dectionary (provided in {} brackets)
     return render(request, 'loadfile.html', {'resol': resolution.resolution, 'mistakes': mistakes.mistakes})
 
 
