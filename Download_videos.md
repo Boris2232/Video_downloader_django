@@ -15,18 +15,18 @@ Link = Link()
                                               ## using pytube.YouTube
                                               video_link = YouTube(link, use_oauth=True, allow_oauth_cache=True)
                                               
-                                              # get the streams of the video
+                                              ## get the streams of the video
                                               streams = video_link.streams
                                               resolutions = set()
                                               
-                                              # adding different available resolutions for the video in a set (to not have repetitions)
+                                              ## adding different available resolutions for the video in a set (to not have repetitions)
                                               for stream in streams:
                                                   resolutions.add(stream.resolution)
                                                   
-                                              # creating object of a Resolution class
+                                              ## creating object of a Resolution class
                                               current_resol = Resolution()
                                               
-                                              # altering Resolution.resolution argument
+                                              ## altering Resolution.resolution argument
                                               current_resol.resolution = sorted([i for i in list(resolutions) if i is not None],
                                                                                 key=lambda x: int(x.split('p')[0]))
                                               return current_resol.resolution
