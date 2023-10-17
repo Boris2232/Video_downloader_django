@@ -1,10 +1,11 @@
 -- There is a explanation from Download_vedos.views function --
 
 ?? After importing and downloading required libraries, create some global variables ??
-mistakes = Mistakes()
-resolution = Resolution()
-mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
-Link = Link()
+
+                                          mistakes = Mistakes()
+                                          resolution = Resolution()
+                                          mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
+                                          Link = Link()
 
 ?? The function below retrieves the list of resolutions to illustrate them on web page ??
 
@@ -33,24 +34,24 @@ Link = Link()
 
 
 ?? function below checks if the provided link is valid (not empty or link from youtube) or if the video is not under age restriction ??
-# 
-def form1_view(request):
 
-                                      #creating python dictionary to store the type of mistake
+                                    def form1_view(request):
+
+                                      ## creating python dictionary to store the type of mistake
                                       mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
                                       
                                       if request.method == 'POST':
                                           Link.link = request.POST.get('link', '')
                                           
-                                          # check if provided link is invalid
+                                          ## check if provided link is invalid
                                           try:
                                               response = requests.get(Link.link)
                                               
-                                              # if the status code == 200 ---> link is valid
+                                              ## if the status code == 200 ---> link is valid
                                               if response.status_code != 200:
                                                   mistakes.mistakes['empty_link'] = True
                                                   
-                                              # catch raised mistakes
+                                              ## catch raised mistakes
                                           except requests.exceptions.RequestException:
                                               mistakes.mistakes['empty_link'] = True
                                           if not Link.link:
@@ -60,34 +61,51 @@ def form1_view(request):
                                                   try:
                                                       resolution.resolution = link_inserting(Link.link)
                                                       
-                                                      # if thoose exceptions are created --> material is age restricted
+                                                      ## if thoose exceptions are created --> material is age restricted
                                                   except (pytube.exceptions.AgeRestrictedError, pytube.exceptions.RegexMatchError):
                                                       mistakes.mistakes['age_restriction'] = True
                                                       
-                                                      # render the page with context dectionary (provided in {} brackets)
+                                                      ## render the page with context dectionary (provided in {} brackets)
                                       return render(request, 'loadfile.html', {'resol': resolution.resolution, 'mistakes': mistakes.mistakes})
 
+?? if the video doesn't have the integrated audio track -> download separetely ??
 
-def form2_view(request):
-    mp4, progres = False, False
-    if request.method == 'POST':
-        action = request.POST.get('data_name', '').rstrip()
-        path = './'
-        if 'videos' not in os.listdir(path):
-            makedir(path)
-        if 'audios' not in os.listdir(path):
-            os.mkdir(path=f'{path}/audios')
-        new_path = './videos'
-        audio_path = './audios'
-        if YouTube(Link.link).streams.filter(res=action, progressive=True, file_extension='mp4').first() is not None:
-            mp4 = True
-            progres = True
-        elif YouTube(Link.link).streams.filter(res=action, progressive=True).first() is not None:
-            progres = True
-        download(Link.link, action, mp4, progres, new_path, audio_path)
-        change_extension(new_path, audio_path)
-        mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
-    return render(request, 'loadfile.html', {'resol': resolution.resolution, 'mistakes': mistakes.mistakes})
+                              def form2_view(request):
+
+                                mp4, progres = False, False
+                                if request.method == 'POST':
+                                    action = request.POST.get('data_name', '').rstrip()
+                                    path = './'
+                                    
+                                    ## create folder with video
+                                    if 'videos' not in os.listdir(path):
+                                        makedir(path)
+                                        
+                                    ## create folder with audios
+                                    if 'audios' not in os.listdir(path):
+                                        os.mkdir(path=f'{path}/audios')
+                                    new_path = './videos'
+                                    audio_path = './audios'
+                                    
+                                    ## !!!!! PROGRESSIVE means video with integrated audio
+                                    ## in code below we check if the video is progressive and | or it is downloaded in mp4 extension
+                                    
+                                    if YouTube(Link.link).streams.filter(res=action, progressive=True, file_extension='mp4').first() is not None:
+                                        mp4 = True
+                                        progres = True
+                                    elif YouTube(Link.link).streams.filter(res=action, progressive=True).first() is not None:
+                                        progres = True
+                                    ## call the function dowload with given variables
+                                    download(Link.link, action, mp4, progres, new_path, audio_path)
+                                    
+                                    ## call the function which checks all videos and their format, if the format is wem --> change it
+                                    change_extension(new_path, audio_path)
+                            
+                                    ## clear up dictionaries with mistakes
+                                    mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, False
+                            
+                                    ##render page
+                                return render(request, 'loadfile.html', {'resol': resolution.resolution, 'mistakes': mistakes.mistakes})
 
 
 def download_audio(link, audio_path):
