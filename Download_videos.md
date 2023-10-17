@@ -33,12 +33,11 @@
                         ## altering Resolution.resolution argument
 
                         ## !!!! All resolutions are illlustrated as the buttons on this page
-                        
-## list of resolutions appears dynamically (all resolutions that are avaible for the current video on Youtube) is availble to choose
             
                         current_resol.resolution = sorted([i for i in list(resolutions) if i is not None],
                                                           key=lambda x: int(x.split('p')[0]))
                         return current_resol.resolution
+## List of resolutions generates dynamically accordingly to the number of resolutions available to choose in YouTube                       
 
 
 ?? function below checks if the provided link is valid (not empty or link from youtube) or if the video is not under age restriction ??
