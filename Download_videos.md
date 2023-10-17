@@ -212,9 +212,9 @@
 
 
 DOWNLOADING PROCESS: 
-IF the VIDEO does not have integrate audio -> stored in ./videos folder   and AUDIO stored in ./audios folder
+IF the VIDEO does not have integrate audio, it is stored in ./videos folder   and   AUDIO stored in ./audios folder
 
-!!! WHEN rendering and inserting audio activities are finished  -> video and audio will be removed from this folder
+!!! WHEN rendering and inserting audio activities are finished  -> video and audio will be deleted from this folder
 
 #####
 !!! FINALLY :::: When all steps are passed, FINAL VIDEO is stored in ./My_Downloaded_videos
