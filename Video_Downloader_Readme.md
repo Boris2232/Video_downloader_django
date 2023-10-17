@@ -28,6 +28,12 @@ link_collector folder's structure:
 
 
 PROBLEMS with downloading videos and it's solutions.
+
 PROBLEM 1: AGE RESTRICTION. According to a youtube's policy, people under 18 are not alowed to watch videos, which are age restricted. To follow this rules, i have written a script, that show that video is under age restrictions. 
-PROBLEM 2: EMPTY LINK:
+
+PROBLEM 2: EMPTY LINK: If the provided link is empty or it is invalid, this will raise a error (function in javascript which prints "Input link").
+
+PROBLEM 3: RESOLITIONS AND FILE EXTENSIONS. When we download videos from youtube, we an face a proble, with file extensions. For example, videos that have resolution higher than 1080p are automatically downloading in webm extension (not possible to watch it on devices). To solve this issue, i created a python code which convers webm -> mp4 file (saving video quality).
+
+PROBLEM 4: No audio track in some videos. Some videos are downloaded without audio (it is not synchronized with video), so i provided python script to download audio separetely and combine with the video.
 
