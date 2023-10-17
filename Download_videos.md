@@ -1,5 +1,8 @@
 -- There is a explanation from Download_vedos.views function --
 
+!!! When resolution button is pushed, javascritp script print Downloading..
+
+
 ?? After importing and downloading required libraries, create some global variables ??
 
                             mistakes = Mistakes()
@@ -28,6 +31,11 @@
                         current_resol = Resolution()
                         
                         ## altering Resolution.resolution argument
+
+                        ## !!!! All resolutions are illlustrated as the buttons on this page
+                        
+## list of resolutions appears dynamically (all resolutions that are avaible for the current video on Youtube) is availble to choose
+            
                         current_resol.resolution = sorted([i for i in list(resolutions) if i is not None],
                                                           key=lambda x: int(x.split('p')[0]))
                         return current_resol.resolution
