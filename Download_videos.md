@@ -7,7 +7,8 @@ mistakes.mistakes['empty_link'], mistakes.mistakes['age_restriction'] = False, F
 Link = Link()
 
 ?? The function below retrieves the list of resolutions to illustrate them on web page ??
-#code
+
+
                                           def link_inserting(link):
                                               video_link = YouTube(link, use_oauth=True, allow_oauth_cache=True)
                                               streams = video_link.streams
