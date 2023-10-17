@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'styles/loadfilestyle.css' %}">
+    <script src="{% static 'scripts/script.js' %}">
+    start_point();
+    </script>
+</head>
+<body>
+<div class="v65_2">
+    <form method="POST" action="{% url 'form1_view' %}">
+    {% csrf_token %}
+    <button class="button1" name="form1_submit" value="link">OK</button>
+    <input class="v65_7" name="link">
+    <span class="v65_5">Please, insert YouTube link</span>
+    </form>
+</div>
+<div class="chose" id ='next'>Choose resolution</div>
+<div class="resolution_pick">
+   {% if mistakes.age_restriction == False and mistakes.empty_link == False %}
+            {% for resolutions in resol %}
+            <form method="POST" class="resolution_button" action="{% url 'form2_view' %}">
+                {% csrf_token %}
+                <input type="hidden" name="data_name" value="{{ resolutions }}">
+                <button type="submit" name="form2_submit" value="Submit Form 2" onclick="congr()">{{resolutions}}</button>
+            </form>
+            {% endfor %}
+   {% endif %}
+    {% if mistakes.empty_link == True %}
+        <script>empty_alert_show()</script>
+    {% endif %}
+    {% if mistakes.age_restriction == True %}
+        <script>age_alert_show()</script>
+    {% endif %}
+
+    <script>scroll_to_end()</script>
+</div>
+</body>
+</html> <br/><br/>

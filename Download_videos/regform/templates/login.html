@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}">
+</head>
+<link rel="stylesheet" href="">
+<body>
+</div>
+<div class="v56_2">
+</div>
+<span class="v56_3">Login</span>
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" class="user" placeholder="Username"><br>
+    <input type="text" name="password" class="pass" placeholder="Password"><br>
+    <button type="submit" value="Submit" class="bb">Submit</button>
+</form>
+<div class="v56_8"></div>
+<div class="v56_11"></div>
+<div class="v56_10"></div>
+</div>
+</body>
+</html>

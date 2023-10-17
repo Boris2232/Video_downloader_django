@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<div class="v1_2">
+    <div class="v1_3">
+    </div>
+    <div class="v1_4">
+    </div>
+    <div class="v1_5">
+    </div>
+    <div class="v1_6">
+    </div>
+    <div class="v1_7">
+    </div>
+<hr>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" class="pp1" placeholder="type here.."><br>
+        <input type="text" name="password" class="pp2" placeholder="type here.."><br>
+        <button type="submit" value="Submit" class="ll">Submit</button>
+    </form>
+    <span class="v1_8"> choose your username:</span>
+    <span class="v1_10">choose your password:</span>
+    <span class="v1_9">Submit</span>
+    <span class="v1_11">Registration Form</span>
+</div>
+</body>
+</html>
+<br/>
+<br/>
