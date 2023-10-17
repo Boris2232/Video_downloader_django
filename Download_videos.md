@@ -10,9 +10,9 @@ Link = Link()
 
 
                                           def link_inserting(link):
-                                          #link is a argument which contains video link in string format
+                                          ## link is a argument which contains video link in string format
                                           
-                                              # using pytube.YouTube
+                                              ## using pytube.YouTube
                                               video_link = YouTube(link, use_oauth=True, allow_oauth_cache=True)
                                               
                                               # get the streams of the video
